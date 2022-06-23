@@ -1,0 +1,15 @@
+.container{
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    color: white;
+}
+
+#start {
+    padding: 10px 40px;
+    letter-spacing: 0.21px;
+    font-size: 16px;
+    cursor: pointer;
+}

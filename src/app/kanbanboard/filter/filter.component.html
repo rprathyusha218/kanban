@@ -1,0 +1,13 @@
+<div class="column" id="filter-layout">
+    <div class="row justify-content-center align-items-center width-100">
+        <div label="header" id="header" class="row align-items-center  justify-content-center">Filter</div>
+        <span class="material-symbols-outlined close-icon" (click)="close()">close</span>
+    </div>
+
+    <div id="filter-body" class="column" [formGroup]="form">
+        <div class="column search">
+            <label for="">Keyword</label>
+            <input type="text" formControlName="search" id="search-input">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+<app-header></app-header>
+
+
+    <div class="kanban-container">
+        <div class="row filter-container space-between">
+            <div></div>
+            <div class="row align-items-initial justify-content-center space-between" >
+                <button class="row justify-content-center align-items-center filter-btn" (click)="showFilter=!showFilter;"><span class="material-symbols-outlined">filter_list</span>&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;<span class="filter-popover-button-card-count" *ngIf="searchString">1</span></button>
+                <span>&nbsp;&nbsp;</span>
+                <button class="row justify-content-center align-items-center menu-btn"><span class="material-symbols-outlined">filter_list</span>&nbsp;&nbsp;Show Menu</button>
+            </div>
+
+            <div id="filter-layout" *ngIf="showFilter">
+                <app-filter (hideFilter)="hideFilter($event)" (searchFilter)="searchFilter($event)"></app-filter>
+            </div>
+        </div>
+        <div class="board-wrapper">
+            <div id="board">
+                <!-- <div class="row"> -->
+                <div class="task">
+                    <div class="task-header row">To Do <span class="material-symbols-outlined" (click)="add()">  add </span></div>
+                    <div class="items column" 
+                    cdkDropList
+                    [cdkDropListData]="todoList"
+                    #todo="cdkDropList"
+                    [cdkDropListConnectedTo]="[development]"
+                    (cdkDropListDropped)="drop($event)">
+                        <div class="column card" *ngFor="let item of todoList | searchFilter: 'name': searchString"  cdkDrag>
+                            <div class="progress"></div>
+                            <div class="task-name">{{item.name}}</div>
+                            <div class="row notifications">
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  comment </span>
+                                    <span class="comment-count">  {{item.comments}} </span>
+                                </div>
+                                
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  select_check_box </span>
+                                    <span class="edit-count">  0/3 </span>
+                                </div>
+                            </div>
+
+                            <div class="column" *cdkDragPreview>
+                                <div class="task-name">{{item.name}}</div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+                <div class=" task">
+                    <div class="task-header">Development </div>
+                    <div class="items column"
+                    cdkDropList
+                    #development="cdkDropList"
+                    [cdkDropListData]="developmentList"
+                    [cdkDropListConnectedTo]="[todo,tes]"
+                    (cdkDropListDropped)="drop($event)"
+                    >
+                        <div class="column card"  *ngFor="let item of (developmentList | searchFilter: 'name': searchString)" cdkDrag>
+                            <div class="progress" ></div>
+                            <div class="task-name">{{item.name}}</div>
+                            <div class="row notifications">
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  comment </span>
+                                    <span class="comment-count"> {{item.comments}} </span>
+                                </div>
+                                
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  select_check_box </span>
+                                    <span class="edit-count">  0/3 </span>
+                                </div>
+                            </div>
+                            <div class="column" *cdkDragPreview>
+                                <div class="task-name">{{item.name}}</div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+
+                <div class=" task">
+                    <div class="task-header">Testing </div>
+                    <div class="items column"
+                    cdkDropList
+                    #tes="cdkDropList"
+                    [cdkDropListData]="testingList"
+                    [cdkDropListConnectedTo]="[compl,development]"
+                    (cdkDropListDropped)="drop($event)"
+                    >
+                        <div class="column card" cdkDrag *ngFor="let item of testingList | searchFilter: 'name': searchString"> 
+                            <div class="progress"></div>
+                            <div class="task-name">{{item.name}}</div>
+                            <div class="row notifications">
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  comment </span>
+                                    <span class="comment-count">  {{item.comments}} </span>
+                                </div>
+                                
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  select_check_box </span>
+                                    <span class="edit-count">  0/3 </span>
+                                </div>
+                            </div>
+                            <div class="column" *cdkDragPreview>
+                                <div class="task-name">{{item.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" task">
+                    <div class="task-header">Done </div>
+                    <div class="items column"
+                    cdkDropList
+                    #compl="cdkDropList"
+                    [cdkDropListData]="completedList"
+                    [cdkDropListConnectedTo]="[tes]"
+                    (cdkDropListDropped)="drop($event)">
+                        <div class="column card" cdkDrag *ngFor="let item of completedList | searchFilter: 'name': searchString">
+                            <div class="progress"></div>
+                            <div class="task-name">{{item.name}}</div>
+                            <div class="row notifications">
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  comment </span>
+                                    <span class="comment-count"> {{item.comments}} </span>
+                                </div>
+                                
+                                <div class="row">
+                                    <span class="material-symbols-outlined">  select_check_box </span>
+                                    <span class="edit-count">  0/3 </span>
+                                </div>
+                            </div>
+                            <div class="column" *cdkDragPreview>
+                                <div class="task-name">{{item.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+
+            </div>
+        </div>
+    </div>
